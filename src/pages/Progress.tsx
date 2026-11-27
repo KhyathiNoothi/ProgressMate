@@ -26,17 +26,17 @@ export default function ProgressPage() {
           const chart = CATS.map(c => { const gs = pg.filter(g => g.category === c); return { c: c.split(' ')[0], Planned: gs.reduce((a, g) => a + Number(g.target), 0), Actual: gs.reduce((a, g) => a + Number(g.progress), 0), n: gs.length } }).filter(x => x.n)
           return (
             <Card key={p.id} className="space-y-5">
-              <h2 className="text-lg font-semibold text-white">{p.id === uid ? `${p.display_name} (you)` : p.display_name}</h2>
+              <h2 className="text-lg font-semibold text-brand-ink">{p.id === uid ? `${p.display_name} (you)` : p.display_name}</h2>
               <div className="grid grid-cols-4 gap-2"><Stat label="Hours" value={s.hours.toFixed(1)} /><Stat label="LeetCode" value={s.lc} /><Stat label="Active days" value={s.days} /><Stat label="Goals done" value={`${s.done}/${s.total}`} /></div>
-              <div><div className="mb-1 flex justify-between text-xs text-slate-400"><span>Monthly goal progress</span><span>{s.pct}%</span></div><Progress value={s.pct} /></div>
-              <div><p className="mb-2 text-xs text-slate-400">Contribution calendar (last 15 weeks)</p><Heatmap data={heat} /></div>
-              <div><p className="mb-2 text-xs text-slate-400">Planned vs actual</p>
-                {chart.length ? <div className="h-48"><ResponsiveContainer><BarChart data={chart}><CartesianGrid stroke="#ffffff14" /><XAxis dataKey="c" stroke="#94a3b8" fontSize={11} /><YAxis stroke="#94a3b8" fontSize={11} /><Tooltip contentStyle={{ background: '#0f1630', border: '1px solid #ffffff20' }} /><Legend /><Bar dataKey="Planned" fill="#7c3aed" radius={[4, 4, 0, 0]} /><Bar dataKey="Actual" fill="#3b82f6" radius={[4, 4, 0, 0]} /></BarChart></ResponsiveContainer></div> : <p className="text-sm text-slate-500">No goals set for this month.</p>}</div>
-              <div><p className="mb-2 text-xs text-slate-400">Recent activity</p>
+              <div><div className="mb-1 flex justify-between text-xs text-brand-muted"><span>Monthly goal progress</span><span>{s.pct}%</span></div><Progress value={s.pct} /></div>
+              <div><p className="mb-2 text-xs text-brand-muted">Contribution calendar (last 15 weeks)</p><Heatmap data={heat} /></div>
+              <div><p className="mb-2 text-xs text-brand-muted">Planned vs actual</p>
+                {chart.length ? <div className="h-48"><ResponsiveContainer><BarChart data={chart}><CartesianGrid stroke="#E3EDE6" /><XAxis dataKey="c" stroke="#7A9487" fontSize={11} /><YAxis stroke="#7A9487" fontSize={11} /><Tooltip contentStyle={{ background: '#fff', border: '1px solid #E3EDE6' }} /><Legend /><Bar dataKey="Planned" fill="#9BD1BD" radius={[4, 4, 0, 0]} /><Bar dataKey="Actual" fill="#4F9D91" radius={[4, 4, 0, 0]} /></BarChart></ResponsiveContainer></div> : <p className="text-sm text-brand-muted">No goals set for this month.</p>}</div>
+              <div><p className="mb-2 text-xs text-brand-muted">Recent activity</p>
                 <div className="space-y-2">{all.slice(0, 5).map(u => (
-                  <div key={u.date} className="rounded-lg border border-white/10 p-3 text-sm"><div className="flex justify-between text-xs text-slate-400"><span>{u.date}</span><span>{u.hours}h · {u.leetcode_count} LC</span></div>
-                    <p className="mt-1 line-clamp-2 text-slate-200">{u.tasks || u.topics.join(', ') || '—'}</p></div>))}
-                  {!all.length && <p className="text-sm text-slate-500">No updates yet.</p>}</div></div>
+                  <div key={u.date} className="rounded-lg border border-brand-line p-3 text-sm"><div className="flex justify-between text-xs text-brand-muted"><span>{u.date}</span><span>{u.hours}h · {u.leetcode_count} LC</span></div>
+                    <p className="mt-1 line-clamp-2 text-brand-ink">{u.tasks || u.topics.join(', ') || '—'}</p></div>))}
+                  {!all.length && <p className="text-sm text-brand-muted">No updates yet.</p>}</div></div>
             </Card>)
         })}
       </div>

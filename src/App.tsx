@@ -22,9 +22,9 @@ export default function App() {
   const uid = session?.user.id ?? ''
   const { data: raw } = useLive<Profile>('profiles', () => (uid ? api.profiles() : Promise.resolve([])), [uid])
   const profiles = [...raw].sort(p => (p.id === uid ? -1 : 1)) // current user first
-  if (session === undefined) return <div className="p-10 text-slate-400">Loading…</div>
+  if (session === undefined) return <div className="p-10 text-brand-muted">Loading…</div>
   if (!session) return <Auth />
-  if (!profiles.length) return <div className="p-10 text-slate-400">Setting up your workspace…</div>
+  if (!profiles.length) return <div className="p-10 text-brand-muted">Setting up your workspace…</div>
   return (
     <Ctx.Provider value={{ uid, profiles }}>
       <Routes><Route element={<Layout />}>

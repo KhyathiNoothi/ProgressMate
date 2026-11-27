@@ -1,5 +1,5 @@
 import { daysAgo, fmt } from '../lib/utils'
-const LV = ['bg-white/5', 'bg-purple-900', 'bg-purple-700', 'bg-purple-500', 'bg-blue-400']
+const LV = ['bg-[#EAF2ED]', 'bg-[#C8E9D8]', 'bg-[#9BD1BD]', 'bg-[#6DB5A5]', 'bg-[#3F867A]']
 /** data: date -> intensity level 0..4. Shows the last 15 weeks. */
 export default function Heatmap({ data }: { data: Record<string, number> }) {
   const start = daysAgo(104)

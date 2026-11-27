@@ -15,3 +15,8 @@ export function summarize(u: Update[], g: Goal[]) {
   const pct = g.length ? Math.round(g.reduce((a, x) => a + goalPct(x), 0) / g.length) : 0
   return { hours, lc, days: u.length, done: g.filter(x => x.status === 'completed').length, total: g.length, pct }
 }
+const ymd = (s: string) => s.split('-').map(Number)
+export const addDays = (s: string, n: number) => { const [y, m, d] = ymd(s); return fmt(new Date(y, m - 1, d + n)) }
+export const weekStart = (s: string) => { const [y, m, d] = ymd(s); return addDays(s, -((new Date(y, m - 1, d).getDay() + 6) % 7)) }
+export const fmtD = (s: string) => { const [y, m, d] = ymd(s); return new Date(y, m - 1, d).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) }
+export const daysBetween = (a: string, b: string) => Math.round((+new Date(b) - +new Date(a)) / 864e5)

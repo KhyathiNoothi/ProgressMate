@@ -1,5 +1,5 @@
 import { supabase } from '../lib/supabase'
-import type { Goal, Profile, Update } from '../lib/types'
+import type { Category, Goal, Profile, Update, WeeklyTask } from '../lib/types'
 
 export const api = {
   profiles: async (): Promise<Profile[]> => (await supabase.from('profiles').select('*')).data ?? [],
@@ -18,4 +18,14 @@ export const api = {
     return path
   },
   fileUrl: async (path: string) => (await supabase.storage.from('attachments').createSignedUrl(path, 3600)).data?.signedUrl,
+  allGoals: async (): Promise<Goal[]> => (await supabase.from('goals').select('*').order('end_date')).data ?? [],
+  categories: async (): Promise<Category[]> => (await supabase.from('categories').select('*').order('name')).data ?? [],
+  addCategories: (names: string[]) => supabase.from('categories').upsert(names.map(name => ({ name })), { onConflict: 'workspace_id,name', ignoreDuplicates: true }),
+  deleteCategory: (id: string) => supabase.from('categories').delete().eq('id', id),
+  tasks: async (goalId: string): Promise<WeeklyTask[]> => (await supabase.from('weekly_tasks').select('*').eq('goal_id', goalId).order('created_at')).data ?? [],
+  saveTask: (t: Partial<WeeklyTask>) => supabase.from('weekly_tasks').upsert(t),
+  deleteTask: (id: string) => supabase.from('weekly_tasks').delete().eq('id', id),
+  allTasks: async (start: string, end: string): Promise<WeeklyTask[]> => (await supabase.from('weekly_tasks').select('*').gte('week_start', start).lte('week_start', end)).data ?? [],
+  saveTasks: (ts: Partial<WeeklyTask>[]) => supabase.from('weekly_tasks').insert(ts),
+  deleteUpdate: (id: string) => supabase.from('daily_updates').delete().eq('id', id),
 }
