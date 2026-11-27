@@ -20,6 +20,3 @@ src/pages               Goals, Daily, Progress, Insights (shown as "Reports & An
 6. Register user 1 and user 2 (different browsers). The first signup creates the shared workspace, the second joins it, a third is rejected.
 
 
-## Notes
-- UI primitives in `components/ui.tsx` follow shadcn/ui conventions; you can replace them with generated shadcn components (`npx shadcn@latest init`) without touching pages much.
-- Progress status is derived automatically (progress ≥ target → completed).
