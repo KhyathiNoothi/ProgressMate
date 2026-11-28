@@ -1,5 +1,42 @@
-@tailwind base; @tailwind components; @tailwind utilities;
-:root { color-scheme: light; }
-body { @apply bg-brand-bg text-brand-ink antialiased; }
-input[type='checkbox'] { accent-color: #4F9D91; }
-::selection { background: #C8E9D8; }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-brand-bg font-sans text-brand-ink antialiased;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+input[type='checkbox'] {
+  accent-color: #4F9D91;
+}
+
+::selection {
+  background: #C8E9D8;
+}
+
+.icon-3d-wrap {
+  perspective: 400px;
+}
+
+.icon-3d-flip {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade,
+  .animate-pop,
+  .animate-check-pop,
+  .animate-badge-flip,
+  .animate-confetti {
+    animation: none !important;
+  }
+}
